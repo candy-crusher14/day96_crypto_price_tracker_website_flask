@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% block title %}Crypto Detector{% endblock %}
+
+
+{% block content %}
+
+
+<div class="card py-5 my-5">
+    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+        <h5 class="card-title mb-4 text-center">
+            <em>Timeout... Couldn't get data from server. Please Try Again!</em>
+        </h5>
+        <a href="{{ url_for('homepage') }}" class="btn btn-outline-dark mt-3">Try Again!</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% block title %}Crypto Detector{% endblock %}
+
+
+{% block content %}
+
+<body>
+
+
+<div class="container mt-5 " style="width:100%">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="cursive"><em>Today's Cryptocurrency Prices</em></h1>
+    </div>
+
+
+<div class="card">
+        <div class="card-body">
+            <h5 class="card-title mb-4"><em>Crypto Price Updates</em></h5>
+            <table class="table table-bordered table-hover" id="cryptoTable">
+                <thead class="table-light">
+                    <tr>
+                        <th class="sortable" onclick="sortTable(0)">Rank<i class="bi bi-arrow-up"></i></th>
+                        <th>Name</th>
+                        <th class="sortable" onclick="sortTable(2)">Price (USD)<i class="bi bi-arrow-up"></i></th>
+                        <th class="sortable" onclick="sortTable(3)">Market Cap (USD)<i class="bi bi-arrow-up"></i></th>
+                        <th class="sortable" onclick="sortTable(4)">24h Volume (USD)<i class="bi bi-arrow-up"></i></th>
+                        <th class="sortable" onclick="sortTable(5)">24h % Change<i class="bi bi-arrow-up"></i></th>
+                        <th>Circulating Supply</th>
+                        <th>Max Supply</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for crypto in cryptos %}
+                    <tr>
+                        <td>{{ crypto.rank }}</td>
+                        <td>{{ crypto.name }} ({{ crypto.symbol }})</td>
+                        <td>{{ "{:,.2f}".format(crypto.priceUsd | float) }}$</td>
+                        <td>{{ "{:,.2f}".format(crypto.marketCapUsd | float) }}$</td>
+                        <td>{{ "{:,.2f}".format(crypto.volumeUsd24Hr | float) }}$</td>
+                        <td class="{{ 'text-success' if crypto.changePercent24Hr | float > 0 else 'text-danger' }}">
+                            {{ '+' if crypto.changePercent24Hr | float > 0 else '-' }}{{ crypto.changePercent24Hr | float | round(2) }}%
+                        </td>
+                        <td>{{ "{:,.2f}".format(crypto.supply | float) }}</td>
+                        <td>{{ "{:,.2f}".format(crypto.maxSupply | float) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+
+
+
+{% include 'footer.html' %}
+
+{% endblock %}
+
+
